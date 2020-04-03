@@ -1,0 +1,4 @@
+db:
+  ☐ Set up DB so it can initialize the first time automatically
+pulldata:
+  ☐ Push csv data into db

@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  db:
+    image: mariadb:10.4
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_P}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USER_N}
+      MYSQL_PASSWORD: ${MYSQL_USER_P}
+
+  pulldata:
+    build: ./pulldata
+    volumes:
+      - ./pulldata:/code
+    depends_on:
+      - db
+    command: tail -F anything
+    environment:
+      MYSQL_USER: ${MYSQL_USER_N}
+      MYSQL_PASSWORD: ${MYSQL_USER_P}
+
+volumes:
+  db-data:
